@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 import Rating from '../components/Rating'
 import Loading from '../components/Loading'
@@ -11,26 +10,42 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const ProductScreen = () => {
     const { id } = useParams()
-    const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
     const product = useSelector((store) => store.shop.item)
+    const inCart = useSelector((store) => store.cart.cart)
     const loading = useSelector((store) => store.shop.loading)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(showProduct(id))
     }, [dispatch, id])
 
-    //THIS IS NOT WORKING AFTER MOVING PRODUCT STATE TO STORE
-/*     if (!product) {
+    
+    if (product.length === 0) {
         return (
             <div className="row center">
                 <h1>Product Not Found!</h1>
             </div>   
         )
-    } */
+    }
 
-    const addToCart = () => {
-        dispatch(cart.actions.setCart({id, quantity}))
+    const addToCart = () => {  
+        const productExist = inCart.find((item) => item._id === product._id)
+        
+        if (productExist){
+            const sumQuantity = parseInt(quantity)+parseInt(productExist.quantity)
+                    
+             if (sumQuantity > productExist.nrStock){
+                alert(`Sry not enough in stock :( You have ${productExist.quantity}/${productExist.nrStock} in cart.`)  
+            } else {
+                dispatch(cart.actions.addItem({...product, quantity}))
+                navigate('/cart')
+            } 
+        } else {
+            dispatch(cart.actions.addItem({...product, quantity}))
+            navigate('/cart')
+        }
     }
 
      return (
@@ -39,10 +54,10 @@ const ProductScreen = () => {
                 <Loading/> 
             ) : (
                 <>
-                <Link className="back-button" to="/">Back</Link>
+                <Link to="/" className="link-button">Back</Link>
                 <div className="row top"> 
                     <div className="column-2">  
-                        <img className="large" src={process.env.PUBLIC_URL + product.image} alt={product.name} /> 
+                        <img className="large" src={product.image} alt={product.name} /> 
                     </div>
                     <div className="column-1">
                         <ul>
@@ -54,7 +69,7 @@ const ProductScreen = () => {
                             <li>
                                 <Rating rating={product.rating} nrRating={product.nrRating} />
                             </li>
-                            <li>Price: ${product.price}</li>
+                            <li>Price: {product.price} SEK</li>
                             <li>Description:<p>{product.description}</p></li>
                         </ul>
                     </div>
@@ -71,7 +86,7 @@ const ProductScreen = () => {
                                     <div className="row">
                                         <div>Status</div>
                                         {product.nrStock > 0 ? (
-                                            <span className="success">In Stock</span>
+                                            <span className="success">{product.nrStock} x In Stock</span>
                                         ) : ( 
                                             <span className="error">Not In Stock</span>
                                         )}
@@ -99,7 +114,7 @@ const ProductScreen = () => {
                                             </div>
                                         </li>
                                         <li>
-                                            <Link to={`/cart/${id}?quantity=${quantity}`} className="cart-button">Add to Cart</Link>
+                                            <button onClick={() => addToCart()}>Add</button>
                                         </li>
                                     </>
                                 )}

@@ -89,8 +89,10 @@ button.primary {
 button.block {
   width: 100%;
 }
-.back-button {
+.link-button {
   color: black;
+  border: 1px solid black;
+  padding: 1rem;
 }
 .cart-button {
   color: black;
@@ -120,17 +122,25 @@ a.brand {
 .column-2 {
   flex: 2 1 50rem;
 }
+.genre-header {
+  background-color: black;
+  color: white;
+  height: 50px;
+  text-align: center;
+}
 
 /* IMAGES */
 /* img {
   border-radius: 0.5rem;
 } */
+img.small {
+  max-width: 150px;
+}
 img.medium {
-  max-width: 29rem;
-  width: 100%;
+  max-width: 300px;
 }
 img.large {
-  width: 60%;
+  max-width: 600px;
 }
 
 /* CARD */
@@ -138,6 +148,7 @@ img.large {
   border: 0.1rem black solid;
   background-color: black;
   margin: 1rem;
+  max-width: 300px;
 }
 .card-body {
   padding: 1rem;
@@ -146,7 +157,9 @@ img.large {
 .card-body > * {
   margin-bottom: 0.5rem;
 }
-
+.card-text {
+  word-wrap: break-word;
+}
 .price {
   font-size: 2rem;
 }
@@ -172,4 +185,59 @@ img.large {
 .genre-container {
   display: flex;
   justify-content: center;
+}
+
+/* CART STUFF */
+.in-cart {
+  color: black;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 100%;
+  padding-left: 9px;
+}
+
+.checkout-section {
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid gray;
+}
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 0;
+  width: 320px;
+}
+.input-fields input {
+  padding: 8px;
+  border: 1px solid #cbcbcb;
+  display: block;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+input#address {
+  padding-bottom: 40px;
+}
+.input-div {
+  padding-left: 30px;
+}
+.checkout-title {
+  margin-top: 30px;
+}
+
+.pay-button {
+  margin: 20px auto;
+  width: 50%;
+  min-width: 320px;
+  border-radius: 5px;
+  background-color: antiquewhite;
+}
+.payment-details {
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+.newsletter {
+  margin: 5px 0;
 }

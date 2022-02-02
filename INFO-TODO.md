@@ -15,8 +15,10 @@
 
 # TODO
 
-- Backend/Redux/Add to cart = Daniel
-- Layout/Database info/Categories screen = Pinar
+- Backend (schemas, mongoDB, heroku, endpoints(post, delete, patch etc.))
+- Search function
+- Styling
+- products/123 (123 = number with no matching id) will show on screen as loading and not found.
 -
 
 # DONE
@@ -25,6 +27,8 @@
 - Rating Stars
 - Product screen
 - Created Store ("shop" for product/products fetch)
+- Cart screen
+- Categories
 -
 
 # INSTALLS
@@ -46,3 +50,14 @@
 
 - Error/success responses
 -
+
+# On Call Questions
+
+- Heroku deployment, missing some installation or something maybe?
+- Double click on our search function fetch
+- Can't import data.json (only .js). "Unknown file extension ".json""
+-
+
+# Saved code snippets
+
+- web: node --experimental-modules backend/server.js
