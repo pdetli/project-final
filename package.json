@@ -1,27 +1,7 @@
 {
-  "name": "project-final",
-  "type": "module",
+  "name": "Project for E Commerce site",
   "version": "1.0.0",
-  "description": "Project for E-Commerce site.",
-  "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dandeloid/project-final.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dandeloid/project-final/issues"
-  },
-  "homepage": "https://github.com/dandeloid/project-final#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
+    "postinstall": "npm install --prefix backend"
   }
 }
