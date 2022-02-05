@@ -61,3 +61,19 @@
 # Saved code snippets
 
 - web: node --experimental-modules backend/server.js
+
+# Links
+
+- https://vinylshop-api.herokuapp.com/api/products/vinyl
+
+# Backend on some progress
+
+- get request for vinyl uploads
+
+- npm install cloudinary dotenv multer multer-storage-cloudinary
+- npm install express-list-endpoints
+
+- user schema and model in server.js
+- /signin and /signup endpoints for post request
+- user.js in the reducer file
+- userScreen route in app.js

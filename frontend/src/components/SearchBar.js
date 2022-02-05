@@ -1,16 +1,24 @@
 import React, { useState } from "react"
+import { useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom"
+
+import { shop } from '../reducers/shop'
 
 const SearchBar = () => {
   const [search, setSearch] = useState("")
-  const [searchResult, setSearchResult] = useState("")
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const onSearchHandle = (search) => {
-    console.log(search)
+  const onSearchHandle = () => {
     fetch(`http://localhost:3003/api/products/name?name=${search}`)
       .then((response) => response.json())
       .then((data) => {
-        setSearchResult(data)
-        console.log(searchResult)
+        if (search.length > 0){
+          dispatch(shop.actions.setItems(data))
+          dispatch(shop.actions.setSearch(search))
+          navigate("/")
+        }
       })
   }
 
@@ -26,9 +34,7 @@ const SearchBar = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </label>
-          <button onClick={() => onSearchHandle(search)}>SEARCH</button>
-  
-
+          <button onClick={() => onSearchHandle()}>SEARCH</button>
       </div>
     </>
   )

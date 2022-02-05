@@ -1,17 +1,27 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 
+import { shop } from '../reducers/shop'
+import { showShop } from "../reducers/shop"
 
 const Header = () => {
 
     const cart = useSelector((store) => store.cart.cart)
 
+    const dispatch = useDispatch()
+
+    const clearSearch = () => {
+        dispatch(shop.actions.setSearch(""))
+        dispatch(shop.actions.setGenre("ALL VINYLS"))
+        dispatch(showShop())
+    }
+
     return (
         <header className="row">
             <div>
-                <Link to="/" className="brand">The Vinyl Shop</Link>
+                <Link to="/" className="brand" onClick={() => clearSearch()}>The Vinyl Shop</Link>
             </div>
             <SearchBar/> 
             <div>

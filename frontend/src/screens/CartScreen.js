@@ -28,9 +28,9 @@ const CartScreen = () => {
         <main>
             <Link to="/" className="link-button">Back</Link>
             <Link to="/checkout" className="link-button">Checkout</Link>
+            <h1>Added to cart</h1>
             {inCart.map(product => (
-                <div key={product._id}>
-                <h1>Added to cart</h1>
+                <div key={product._id} className="row center">
                 <img className="small" src={product.image} alt={product.name} />
                 <p>Artist: {product.name}</p>
                 <p>Title: {product.title}</p>
