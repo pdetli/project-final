@@ -134,7 +134,7 @@ a.brand {
   border-radius: 0.5rem;
 } */
 img.small {
-  max-width: 150px;
+  max-width: 100px;
 }
 img.medium {
   max-width: 300px;

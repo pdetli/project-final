@@ -53,27 +53,3 @@ export const addVinyl = createSlice({
     },
   },
 })
-
-// export const showShop = () => {
-//   return (dispatch) => {
-//     const options = {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//     dispatch(shop.actions.setLoading(true))
-//     fetch("http://localhost:3003/api/products", options)
-//       .then((res) => res.json())
-//       .then((data) => {
-//         if (data) {
-//           dispatch(shop.actions.setItems(data))
-//           dispatch(shop.actions.setError(null))
-//           dispatch(shop.actions.setLoading(false))
-//         } else {
-//           dispatch(shop.actions.setError(data))
-//           dispatch(shop.actions.setLoading(false))
-//         }
-//       })
-//   }
-// }
