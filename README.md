@@ -1,6 +1,6 @@
 ### Project-Final
 
-A multi-page webshop for buying & selling Vinyls built with MERN Stack. Design and developed by Pinar Demirel and Daniel Vestin.
+A multi-page webshop for buying & selling Vinyls built with MERN Stack. Designed and developed by Pinar Demirel and Daniel Vestin.
 
 ### Technical Requirements
 
