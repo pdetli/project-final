@@ -1,13 +1,10 @@
 import express from "express"
-// import data from "./data.js"
 import cors from "cors"
 import mongoose from "mongoose"
 import listEndpoints from "express-list-endpoints"
-// import VinlySchema from "./schemas/vinyl.js"
-// import UserSchema from "./schemas/user.js"
-import crypto from "crypto"
+import File from "./schemas/vinyl.js"
+import UserSchema from "./schemas/user.js"
 import bcrypt from "bcrypt"
-//
 
 import dotenv from "dotenv"
 import cloudinaryFramework from "cloudinary"
@@ -22,60 +19,13 @@ dotenv.config()
 app.use(cors())
 app.use(express.json())
 
-// const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/vinylAPI"
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/vinylUpload"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/vinylAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-// Mongoose Schema for File model
-const File = mongoose.model("File", {
-  vinylName: String,
-  name: {
-    type: String,
-    require: true,
-  },
-  title: {
-    type: String,
-    require: true,
-  },
-  genre: {
-    type: String,
-    enum: ["pop", "hiphop", "rock", "electronic"],
-  },
-  image: {
-    type: String,
-  },
-  price: {
-    type: Number,
-    require: true,
-  },
-  nrStock: {
-    type: Number,
-    require: true,
-  },
-  brand: {
-    type: String,
-  },
-  rating: {
-    type: Number,
-  },
-  nrRating: {
-    type: Number,
-  },
-  released: {
-    type: String,
-  },
-  about: {
-    type: String,
-    maxlength: 900,
-    trim: true,
-  },
-})
 const cloudinary = cloudinaryFramework.v2
 cloudinary.config({
   cloud_name: "dngo7qnhp",
-  // api_key: 958491567925984,
-  // api_secret: "w40Ze2wCKXyO2r6OCeEMnhNRpLY",
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
@@ -84,15 +34,12 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "files",
-    allowedFormats: ["jpg", "png"],
+    allowedFormats: ["jpg", "jpeg", "png"],
     transformation: [{ width: 500, height: 500, crop: "limit" }],
   },
 })
 
 const parser = multer({ storage })
-
-// Lists all of the endpoints
-app.get("/", (req, res) => res.send(listEndpoints(app)))
 
 app.get("/api/products", parser.single("file"), async (req, res) => {
   const perPage = 50
@@ -145,7 +92,6 @@ app.get("/api/products/genre", async (req, res) => {
   const { genre } = req.query
   console.log(genre)
   try {
-    // const genreData = await File.find({ genre: genre })
     const genreData = await File.find({
       genre: { $regex: `.*${genre}.*`, $options: "$i" },
     })
@@ -160,21 +106,19 @@ app.get("/api/products/genre", async (req, res) => {
   }
 })
 
-// GET for searching artists and albums: api/products/seacrh?name="searchname"
-// or api/products/seacrh?title="searchtitle"
+// GET request for searching artists, albums and released years: api/products/seacrh?q="search value"
 
 app.get("/api/products/search", async (req, res) => {
   try {
-    const { name, title } = req.query
+    const query = req.query["q"]
+    console.log("req.query", query)
     const vinylByName = await File.find({
       $or: [
-        {
-          name: { $regex: `.*${name}.*`, $options: "$i" },
-        },
-        { title: { $regex: `.*${title}.*`, $options: "$i" } },
+        { name: { $regex: `.*${query}.*`, $options: "$i" } },
+        { title: { $regex: `.*${query}.*`, $options: "$i" } },
+        { released: { $regex: `.*${query}.*`, $options: "$i" } },
       ],
     })
-
     // $options here $i is used to make the search case insensitive.
     if (vinylByName.length > 0) {
       res.status(200).json({ response: vinylByName, success: true })
@@ -186,12 +130,8 @@ app.get("/api/products/search", async (req, res) => {
   }
 })
 
-// https://regex101.com/
-// https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
-
 app.get("/api/products/id/:id", async (req, res) => {
   const { id } = req.params
-  // _id id ?
   try {
     const singleProduct = await File.findById(id)
     if (singleProduct) {
@@ -206,39 +146,6 @@ app.get("/api/products/id/:id", async (req, res) => {
   }
 })
 
-//
-//
-//
-//
-//
-//
-//
-//
-
-// protected endpoint for the authenticated user
-// app.get("/upload", authenticateUser)
-// app.get("/upload", (req, res) => {
-//   res.json({ message: "You are logged in! Now you can sell vinyls" })
-// })
-
-// Schema for User Login
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex"), // generate a random string with hex type
-  },
-})
-
 // mongoose.model for User Login Page
 const User = mongoose.model("User", UserSchema)
 
@@ -249,8 +156,8 @@ app.post("/signup", async (req, res) => {
   try {
     const salt = bcrypt.genSaltSync()
 
-    if (password.length < 6) {
-      throw { message: "Password must be at least 6 character long" }
+    if (password.length < 5) {
+      throw { message: "Password must be at least 5 character long" }
     }
 
     const newUser = await new User({
@@ -295,23 +202,27 @@ app.post("/signup", async (req, res) => {
   }
 })
 
-// Log in
+// Sign in
 app.post("/signin", async (req, res) => {
   const { email, password } = req.body
 
   try {
     const user = await User.findOne({ email })
-    if ((user && bcrypt.compareSync(password), user.password)) {
+
+    if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
         response: {
           userId: user._id,
           email: user.email,
           accessToken: user.accessToken,
         },
+        success: true,
       })
+      console.log(user.email)
     } else {
       res.status(404).json({
-        response: "email or password doesn't match",
+        message: "Email or password does not match",
+        response: "User not found",
         success: false,
       })
     }
@@ -319,6 +230,9 @@ app.post("/signin", async (req, res) => {
     res.status(404).json({ response: error, success: false })
   }
 })
+
+// Lists all of the endpoints
+app.get("/", (req, res) => res.send(listEndpoints(app)))
 
 // Root
 app.get("/", (req, res) => {

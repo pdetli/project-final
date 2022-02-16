@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
-//import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { API_LOGIN_URL } from "../utils/urls"
-import user from "../reducers/user"
+import { user } from "../reducers/user"
 
 const Signup = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [mode, setMode] = useState("signup") // either for signup or signin
+  const [mode, setMode] = useState("signup")
   const [validationError, setValidationError] = useState(null)
 
-  // const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = useSelector((store) => store.user.accessToken)
 
   const dispatch = useDispatch()
-  //   const navigate = useNavigate()
+  const navigate = useNavigate()
 
-  //   useEffect(() => {
-  //     if (accessToken) {
-  //       navigate("/")
-  //     }
-  //   }, [accessToken, navigate])
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/upload")
+    }
+  }, [accessToken, navigate])
 
-  //to send a request to backend
   const onUserSubmit = (event) => {
     event.preventDefault()
 
@@ -36,8 +35,8 @@ const Signup = () => {
     fetch(API_LOGIN_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        if (data.success) {
+        console.log("TEST", data)
+        if (data) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setEmail(data.response.email))
@@ -58,56 +57,60 @@ const Signup = () => {
   }
 
   return (
-    <section>
+    <section className="signup-container">
       <div>
-        <h1>Signup or Login to buy StoneCakes</h1>
+        <form className="sign-form" onSubmit={onUserSubmit}>
+          <div className="sign-text">
+            <span>
+              <i className={"fa fa-user fa-2x"} />
+            </span>{" "}
+            <h1 className="sign-create">Create an account to sell vinyls!</h1>
+            <h2 className="sign-have">
+              Already have one?{" "}
+              <span>
+                Sign in. <i className="fa fa-user-alien fa-lg"></i>
+              </span>
+            </h2>
+          </div>
+          <label htmlFor="email">Email</label>
+          <div>
+            <input
+              className="sign-form-input"
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <label htmlFor="password">Password</label>
+          <div>
+            <input
+              className="sign-form-input"
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {setValidationError !== null && <p>{validationError}</p>}
+          <div className="sign-btn-container">
+            <button
+              className="sign-btn"
+              type="submit"
+              onClick={() => setMode("signin")}
+            >
+              Sign in
+            </button>
+            <button
+              className="sign-btn"
+              type="submit"
+              onClick={() => setMode("signup")}
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
       </div>
-
-      <div>
-        <div>
-          <input
-            id="signup"
-            type="radio"
-            checked={mode === "signup"}
-            onChange={() => setMode("signup")}
-          />
-          <label htmlFor="signup">Sign up</label>
-        </div>
-
-        <div>
-          <input
-            id="signin"
-            type="radio"
-            checked={mode === "signin"}
-            onChange={() => setMode("signin")}
-          />
-          <label htmlFor="signin">Sign in</label>
-        </div>
-      </div>
-      <form onSubmit={onUserSubmit}>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {/* if we have error -> display it */}
-        {validationError !== null && <p>{validationError}</p>}
-        {/* <button type="submit">Submit</button> */}
-        {mode === "signup" ? (
-          <button type="submit">Create user</button>
-        ) : (
-          <button type="submit">Login</button>
-        )}
-      </form>
     </section>
   )
 }

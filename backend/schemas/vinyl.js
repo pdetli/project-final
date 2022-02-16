@@ -1,47 +1,46 @@
 import mongoose from "mongoose"
 
-const VinylSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-    },
-    title: {
-      type: String,
-    },
-    genre: {
-      type: String,
-      enum: ["Pop", "Hip hop", "Rock", "Electronic"],
-    },
-    image: {
-      type: String,
-    },
-    price: {
-      type: Number,
-    },
-    nrStock: {
-      type: Number,
-    },
-    brand: {
-      type: String,
-    },
-    rating: {
-      type: Number,
-    },
-    nrRating: {
-      type: Number,
-    },
-    released: {
-      type: Date,
-    },
-    about: {
-      type: String,
-      maxlength: 900,
-      trim: true,
-    },
+const File = mongoose.model("File", {
+  vinylName: String,
+  name: {
+    type: String,
+    require: true,
   },
-  {
-    timestamps: true,
-  }
-)
+  title: {
+    type: String,
+    require: true,
+  },
+  genre: {
+    type: String,
+    enum: ["pop", "hiphop", "rock", "electronic"],
+  },
+  image: {
+    type: String,
+  },
+  price: {
+    type: Number,
+    require: true,
+  },
+  nrStock: {
+    type: Number,
+  },
+  brand: {
+    type: String,
+  },
+  rating: {
+    type: Number,
+  },
+  nrRating: {
+    type: Number,
+  },
+  released: {
+    type: String,
+  },
+  about: {
+    type: String,
+    maxlength: 900,
+    trim: true,
+  },
+})
 
-export default VinylSchema
+export default File

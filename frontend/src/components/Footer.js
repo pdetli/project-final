@@ -1,8 +1,19 @@
-import React from 'react' 
+import React from 'react'
 
 const Footer = () => {
     return (
-        <footer className="row center">Daniel & Pinar</footer>  
+        <>
+            <footer>
+                <div className="footer-info">
+                    <div>
+                        Project by
+                    </div>
+                    <div>
+                        Daniel & Pinar
+                    </div>     
+                </div>
+            </footer>
+        </>
     )
 }
 

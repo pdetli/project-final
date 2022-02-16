@@ -22,21 +22,28 @@ body {
     "main"
     "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: 21rem 1fr 8rem;
   height: 100%;
 }
 header {
   grid-area: header;
   background-color: black;
+  height: 21rem;
+  background-image: url("./bg-blackstripes.png");
+  background-repeat: repeat;
 }
 main {
   grid-area: main;
-  padding: 1rem;
+  padding-top: 1rem;
+  background-image: url("./bg-whitediamond.png");
+  background-repeat: repeat;
 }
 footer {
   grid-area: footer;
   background-color: black;
   color: white;
+  background-image: url("./bg-blackstripes.png");
+  background-repeat: repeat;
 }
 
 .row {
@@ -59,9 +66,9 @@ a {
   text-decoration: none;
   color: white;
 }
-a:hover {
-  color: lightblue;
-}
+/* a:hover {
+  color: red;
+} */
 ul {
   padding: 0;
   margin: 0;
@@ -81,7 +88,7 @@ button {
   cursor: pointer;
 }
 button:hover {
-  border: 0.2rem white solid;
+  border: 0.1rem red solid;
 }
 button.primary {
   background-color: white;
@@ -90,9 +97,17 @@ button.block {
   width: 100%;
 }
 .link-button {
+  background-color: white;
   color: black;
   border: 1px solid black;
   padding: 1rem;
+  margin: 1rem;
+  font-family: "Concert One", cursive;
+}
+.link-button:hover {
+  border: 0.1rem red solid;
+  background-color: red;
+  transition: 0.5s;
 }
 .cart-button {
   color: black;
@@ -107,11 +122,28 @@ header a {
 }
 a.brand {
   color: white;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 5rem;
+  /* font-weight: bold; */
+  /* font-family: "Great Vibes", cursive; */
+  font-family: "Concert One", cursive;
+  animation: glow 2s ease-in-out infinite;
+  animation-direction: alternate-reverse;
 }
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px #687ef8;
+  }
+  to {
+    text-shadow: 0 0 30px #f0e7ff, 0 0 10px #b3d8ff;
+  }
+}
+
 .row.center {
   justify-content: center;
+}
+.center-mid {
+  text-align: center;
+  margin: 0 auto;
 }
 .row.top {
   align-items: flex-start;
@@ -127,20 +159,27 @@ a.brand {
   color: white;
   height: 50px;
   text-align: center;
+  background-image: url("./bg-blackstripes.png");
+  background-repeat: repeat;
+  font-family: "Concert One", cursive;
 }
 
 /* IMAGES */
-/* img {
-  border-radius: 0.5rem;
-} */
+img.x-small {
+  max-width: 50px;
+}
 img.small {
   max-width: 100px;
 }
 img.medium {
-  max-width: 300px;
+  max-width: 200px;
 }
 img.large {
-  max-width: 600px;
+  max-width: 96%;
+  margin: 1rem;
+}
+img.circle {
+  border-radius: 50%;
 }
 
 /* CARD */
@@ -148,7 +187,8 @@ img.large {
   border: 0.1rem black solid;
   background-color: black;
   margin: 1rem;
-  max-width: 300px;
+  max-width: 200px;
+  height: 440px;
 }
 .card-body {
   padding: 1rem;
@@ -156,6 +196,20 @@ img.large {
 }
 .card-body > * {
   margin-bottom: 0.5rem;
+}
+.artist-card-info {
+  background-color: white;
+  flex: 1 1 25rem;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+}
+.product-card-info {
+  border: 0.1rem black solid;
+  background-color: black;
+  margin: 1rem;
+  padding: 1rem;
+  color: white;
 }
 .card-text {
   word-wrap: break-word;
@@ -182,9 +236,71 @@ img.large {
 }
 
 /* GENRE AND SUB-CATEGORIES  */
+/* .search-genre-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+.search-bar {
+  display: flex;
+  max-width: 300px;
+  margin: 0 10px 0 10px;
+}
+.search-input {
+  /* padding: 1.1rem; */
+  border-radius: 0;
+}
+.search-button {
+  background-color: white;
+  color: black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 1rem;
+  font-family: "Concert One", cursive;
+  height: 18px;
+  margin: auto 0;
+}
+.search-button:hover {
+  border: 1px red solid;
+  background-color: red;
+}
+
 .genre-container {
   display: flex;
   justify-content: center;
+  /* margin: 10px; */
+  background-image: url("./bg-bw-vinyls.jpeg");
+  height: 200px;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: cover;
+  opacity: 90%;
+  flex-direction: column;
+}
+.genre-button {
+  max-width: 10rem;
+  text-align: center;
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 1px solid black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.4rem;
+  font-family: "Concert One", cursive;
+  background-color: white;
+  cursor: pointer;
+}
+
+.genre-button:hover {
+  border: 0.1rem red solid;
+  background-color: red;
+  transition: 0.5s;
+}
+.genre-block {
+  display: flex;
+  margin-bottom: 10px;
 }
 
 /* CART STUFF */
@@ -200,17 +316,19 @@ img.large {
   width: 400px;
   margin: 30px auto;
   padding: 20px;
-  border: 1px solid gray;
+  border: 1px solid black;
 }
 .input-fields {
   display: flex;
   flex-direction: column;
   padding: 3px 0;
-  width: 320px;
+  /* width: 320px; */
+  width: 100%;
+  margin: 0 auto;
 }
-.input-fields input {
+/* .input-fields input {
   padding: 8px;
-  border: 1px solid #cbcbcb;
+  border: 1px solid black;
   display: block;
   border-radius: 5px;
   margin: 5px 0;
@@ -222,22 +340,283 @@ input#address {
 }
 .input-div {
   padding-left: 30px;
-}
-.checkout-title {
+} */
+/* .checkout-title {
   margin-top: 30px;
-}
+} */
 
-.pay-button {
-  margin: 20px auto;
-  width: 50%;
-  min-width: 320px;
-  border-radius: 5px;
-  background-color: antiquewhite;
-}
 .payment-details {
   font-size: 12px;
   margin-bottom: 30px;
+  text-align: center;
 }
-.newsletter {
-  margin: 5px 0;
+
+/* Upload Page  */
+/* form {
+  font-family: "Raleway", sans-serif;
+  background-color: #d2fc29;
+  padding: 10px;
+  width: 70%;
+  max-width: 500px;
+  margin: 10px auto 30px;
+  color: #031a19;
+  box-shadow: 3px 4px 3px 1px rgb(218 218 218 / 48%);
+  border-radius: 3px;
+} */
+input {
+  padding: 11px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+input[type="file"] {
+  padding: 7px;
+  border: none;
+  color: #1e1e1e;
+  border: 1px solid #cbcbcb;
+}
+
+.input-field {
+  padding: 10px;
+}
+
+.title-text {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+.input-labels {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 0;
+  margin: 6px 0;
+}
+.form-buttons {
+  display: flex;
+}
+label {
+  margin: 8px 0;
+}
+.btn-select {
+  color: #ffff;
+  box-shadow: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 8px;
+  justify-content: center;
+  width: 150px;
+  font-weight: 600;
+  border: 1px solid #cbcbcb;
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+  background-color: #dddddd88;
+  margin: 15px 0;
+  font-size: 12px;
+  width: 100%;
+  color: #525252;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #cbcbcb;
+}
+.separated-inputs {
+  display: flex;
+  margin-top: 10px;
+}
+
+/* New */
+
+/* HEADER */
+.nav-icons {
+  margin: 0 10px 0 10px;
+  padding: 5px 26px;
+  /* border: 1px solid red; */
+}
+.brand-logo {
+  margin: 0 10px 0 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.logo-image {
+  max-width: 80px;
+  animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .logo-text {
+  font-size: 4rem;
+} */
+
+/* CART */
+.screen-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.added-cart {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+.in-cart-products {
+  margin: 0 10px 0 10px;
+  padding: 5px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+.in-cart-products:nth-child(even) {
+  background: lightcyan;
+}
+.remove-all-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.remove-all-button {
+  margin: 10px;
+}
+
+/* FOOTER */
+.footer-info {
+  margin-top: 2rem;
+  text-align: center;
+}
+/* CONTACT */
+.contact-container {
+  background-color: white;
+  padding: 7rem;
+  border-radius: 50%;
+}
+.email {
+  color: black;
+}
+.style-text {
+  font-family: "Concert One", cursive;
+  font-size: 2.4rem;
+}
+
+.signup-container {
+  /* width: 40%; */
+  min-width: 250px;
+  max-width: 400px;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.sign-form-input {
+  width: 100%;
+  padding: 10px 0;
+  border: 1px solid #000000;
+  margin: 8px 0;
+}
+
+.sign-btn,
+.upload-btn,
+.pay-btn {
+  padding: 10px;
+  border: 0.1rem black solid;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
+  background-color: white;
+  cursor: pointer;
+  height: auto;
+  width: 47%;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.sign-btn:hover,
+.upload-btn:hover,
+.pay-btn:hover {
+  color: #e8e8e8;
+  font-weight: bold;
+  background-color: rgb(0, 0, 0);
+  border: 0.1rem black solid;
+}
+
+.sign-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+.sign-form {
+  padding: 30px;
+  border: 1px solid black;
+  height: 400px;
+}
+
+.sign-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-create {
+  margin: 0;
+}
+.sign-have {
+  margin: 0 0 30px 0;
+  color: grey;
+}
+
+/* upload  */
+
+.form-wraper {
+  width: 600px;
+  min-width: 300px;
+  margin: auto;
+  padding: 30px;
+}
+
+.upload-form,
+.payment-form {
+  padding: 30px;
+  border: 1px solid black;
+  max-width: 450px;
+  margin: 10px auto 30px;
+  background-color: #ffffff;
+}
+
+.upload-btn,
+.pay-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+#search-input {
+  width: 200px;
+  border-radius: unset;
+}
+
+.search-btn {
+  padding: 1rem;
+  border: 0.1rem black solid;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* .input-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+input#card {
+  width: 95%;
 }

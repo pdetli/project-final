@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-//The Cart --- WORK IN PROGRESS
+//The Cart
 export const cart = createSlice({
   name: "cart",
   initialState: {
     cart: [],
+    modal: false,
   },
   reducers: {
     addItem: (store, action) => {
@@ -25,7 +26,7 @@ export const cart = createSlice({
         (item) => item._id === action.payload._id
       )
       if (productExist.quantity >= productExist.nrStock) {
-        alert("Sry not enough in stock :(")
+        store.modal = true
       } else {
         productExist.quantity++
       }
@@ -50,5 +51,8 @@ export const cart = createSlice({
     removeAllItems: (store, action) => {
       store.cart = []
     },
+    setModalOn: (store, action) => {
+			store.modal = action.payload
+		},
   },
 })
