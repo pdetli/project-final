@@ -1,6 +1,6 @@
 ### Project-Final
 
-Project by Daniel Vestin & Pinar Demirel making a webshop for buying & selling Vinyls built with MERN stack.
+A multi-page webshop for buying & selling Vinyls built with MERN Stack. Designed and developed by Pinar Demirel and Daniel Vestin.
 
 ### Technical Requirements
 
@@ -13,10 +13,12 @@ Project by Daniel Vestin & Pinar Demirel making a webshop for buying & selling V
 
 ### Tech used
 
-• Backend: Node.js, Express, Mongoose, MongoDB, Heroku, Cloudinary
-• Frontend: React, React Router, React Redux, Redux Toolkit, Netlify
+• BE: Node.js, Express, Mongoose, MongoDB, Heroku, Cloudinary
+
+• FE: React, React Router, React Redux, Redux Toolkit, Netlify
 
 ### Live
 
 Frontend: https://vinylcakes.netlify.app/
+
 Backend: https://vinylshop-api.herokuapp.com/

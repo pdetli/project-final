@@ -27,22 +27,22 @@ body {
 }
 header {
   grid-area: header;
-  background-color: black;
   height: 21rem;
-  background-image: url("./bg-blackstripes.png");
-  background-repeat: repeat;
+  background-image: url("./bg-paper2.png");
+  background-size: cover;
+  /* background-repeat: repeat; */
 }
 main {
   grid-area: main;
   padding-top: 1rem;
-  background-image: url("./bg-whitediamond.png");
+  /* background-image: url("./bg-whitediamond.png"); */
   background-repeat: repeat;
 }
 footer {
   grid-area: footer;
-  background-color: black;
-  color: white;
-  background-image: url("./bg-blackstripes.png");
+  /* background-color: black; */
+  color: rgb(0, 0, 0);
+  /* background-image: url("./bg-blackstripes.png"); */
   background-repeat: repeat;
 }
 
@@ -51,6 +51,13 @@ footer {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+}
+
+.best {
+  background-image: url("./bg-paper.png");
+  background-size: cover;
+  margin-bottom: 50px;
+  height: 600px;
 }
 
 /* RECURRENT */
@@ -64,7 +71,7 @@ h2 {
 }
 a {
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 /* a:hover {
   color: red;
@@ -117,17 +124,17 @@ button.block {
 
 /* HEAD */
 header a {
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 1rem;
 }
 a.brand {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 5rem;
   /* font-weight: bold; */
   /* font-family: "Great Vibes", cursive; */
-  font-family: "Concert One", cursive;
+  /* font-family: "Concert One", cursive;
   animation: glow 2s ease-in-out infinite;
-  animation-direction: alternate-reverse;
+  animation-direction: alternate-reverse; */
 }
 @keyframes glow {
   from {
@@ -157,22 +164,24 @@ a.brand {
 .genre-header {
   background-color: black;
   color: white;
-  height: 50px;
+  /* height: 50px; */
   text-align: center;
-  background-image: url("./bg-blackstripes.png");
+  /* background-image: url("./bg-blackstripes.png"); */
   background-repeat: repeat;
   font-family: "Concert One", cursive;
+  padding: 3px;
+  margin: 20px 0 0;
 }
 
 /* IMAGES */
 img.x-small {
-  max-width: 50px;
+  max-width: 80px;
 }
 img.small {
-  max-width: 100px;
+  max-width: 120px;
 }
 img.medium {
-  max-width: 200px;
+  max-width: 250px;
 }
 img.large {
   max-width: 96%;
@@ -184,15 +193,17 @@ img.circle {
 
 /* CARD */
 .card {
-  border: 0.1rem black solid;
-  background-color: black;
-  margin: 1rem;
-  max-width: 200px;
-  height: 440px;
+  /* border: 0.1rem black solid; */
+  /* background-color: black; */
+  margin: 1.5rem;
+  /* background-color: #dddddd69; */
+  padding: 30px;
+  /* max-width: 200px;
+  height: 440px; */
 }
 .card-body {
   padding: 1rem;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 .card-body > * {
   margin-bottom: 0.5rem;
@@ -232,7 +243,7 @@ img.circle {
   color: green;
 }
 .error {
-  color: red;
+  color: rgb(103, 103, 103);
 }
 
 /* GENRE AND SUB-CATEGORIES  */
@@ -271,7 +282,7 @@ img.circle {
   justify-content: center;
   /* margin: 10px; */
   background-image: url("./bg-bw-vinyls.jpeg");
-  height: 200px;
+  height: 300px;
   align-items: center;
   background-repeat: no-repeat;
   background-size: auto;
@@ -280,7 +291,7 @@ img.circle {
   flex-direction: column;
 }
 .genre-button {
-  max-width: 10rem;
+  width: 8rem;
   text-align: center;
   margin: 0 0.5rem 0 0.5rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -503,8 +514,9 @@ select {
   color: black;
 }
 .style-text {
-  font-family: "Concert One", cursive;
+  /* font-family: "Concert One", cursive; */
   font-size: 2.4rem;
+  margin: 0;
 }
 
 .signup-container {
